@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorator="layout/tabs/tabs_content">
+<head>
+<title>RMSoft BMS 사용자 로그인이력 조회</title>
+<!-- bms/announcement 자바스크립트 (HEAD) 안에 위치 -->
+<script th:src="@{/js/bms/book/bookUserForm.js}"></script>
+
+</head>
+<body>
+<th:block layout:fragment="content">
+
+<div id="bookuser_content"  style="height:100%;">
+   <div class="path">
+      <ul class="breadcrumbs">
+             <li>홈 </li>
+             <li>시스템관리</li>
+             <li>현장실습</li> 
+             <li>도서관리(일반)</li>
+       </ul>
+    </div>
+   <div class="easyui-panel" style="height:100%;" data-options="iconCls:'icon-search',border:false, fit:true">
+      <div class="easyui-layout" data-options="fit:true,border:false">
+         <!-- NORTH(TOP) SEARCH / BUTTON AREA -->
+         <div data-options="region:'north',border:false"  class="mB10">
+            <form id="bookuser_searchForm" method="get">
+               <div class="searchBox-wrap">
+                  <ul class="f0 mB10">
+                     <li class="fl">
+                        <input type="hidden" id="pageSize" name="pageSize"/>
+                        <input type="hidden" id="pageNumber" name="pageNumber"/>
+
+                        <div class="inline-group mR20">
+                           <input class="easyui-datebox" id="bookuser_searchStartDate" name="searchStartDate" data-options="label:'조회기간',labelWidth:90"/>
+                           <input class="easyui-datebox" id="bookuser_searchEndDate" name="searchEndDate" data-options="label:'~'"/>
+                        </div>
+
+                            <div class="inline-group mR20">
+									<select class="easyui-combobox" id="UIBID0150L_menu" name="bkmenu" data-options="editable:false,label:'검색조건',labelWidth:75" style="width:210px">
+										<option value="" selected>-전체-</option>
+										<option value="title">도서명</option>
+										<option value="author" >저자</option>
+										<option value="publisher" >출판사</option>
+										<option value="tagcode" >도서코드</option>
+									</select>
+									<input class="easyui-textbox"   id="bookuser_searchText" name="searchName" labelPosition=""  style="width:150px;">
+                            </div>
+                               </li>
+                            </ul>
+                        
+             
+					<ul class="f0">
+							<li class="fl">
+								<div class="inline-group mR20">
+									<select class="easyui-combobox" id="bookuser_frstColOrdr" name="frstColOrdr" data-options="editable:false,label:'정렬조건',labelWidth:75" style="width:210px">
+										<option value="">-선택-</option>
+										<option value="updatedt" selected >등록날짜</option>
+										<option value="bktitle" >도서명</option>
+									</select>
+									<select class="easyui-combobox" id="bookuser_frstSelOrdr" name="frstSelOrdr" data-options="editable:false" style="width:100px">
+										<option value="">-선택-</option>
+										<option value="A" selected>오름차순</option>
+										<option value="D">내림차순</option>
+									</select>
+                			</div>
+                			<li class="fr">
+                       		 <a href="#" class="easyui-linkbutton darkgray" id="bookuser_btnSearch" data-options="iconCls:'icon-search'">검색</a>
+
+                       		 
+                     </li>
+                  </ul>
+               </div>
+            </form>
+         </div>
+         <div data-options="region:'center',border:false">
+            <div class="easyui-panel tbl-grid" style=" padding-bottom:40px;" data-options="fit:true,border:false" >
+               <table id="bookuser_egrid" class="easyui-datagrid" data-options="fit:true,toolbar:'#gridToolbar',fitColumns:true,scrollbarSize:0"  style="min-height:400px;">
+                  <thead>
+                     <tr>
+                        <th data-options="field:'updateDt',align:'center',halign:'center',width:200,formatter:strToDateTimeFormat">등록날짜</th>
+                        <th data-options="field:'bkTitle',align:'center',halign:'center',width:350,formatter:bookuser_rpConfirm">도서명</th>
+                        <th data-options="field:'bkAuthor',align:'left',halign:'center', width:200">저자</th>
+                        <th data-options="field:'bkPublisher',align:'left',halign:'center',width:200">출판사</th>
+                        <th data-options="field:'bkTagCode',align:'left',halign:'center',width:200">도서코드</th>
+                        <th  id="bookuser_bkOutState"data-options="field: 'bkOutState',align:'left',halign:'center',width:200">상태</th>
+                     </tr>
+                  </thead>
+               </table>
+            </div>
+         </div>
+         
+      </div>
+   </div>
+</div>
+
+</th:block>
+</body>
+</html>

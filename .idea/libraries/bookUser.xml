@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="bookUser">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Java Spring/bookUser/bookUserForm.zip!/" />
+      <root url="jar://$PROJECT_DIR$/Java Spring/bookUser/bookuser.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

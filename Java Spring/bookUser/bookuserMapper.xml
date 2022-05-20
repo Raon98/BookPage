@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.rmsoft.bms.bookuser.mapper.bookuserMapper">
+
+	<!-- 구성원 조회 -->
+	<select id="getbookuserList" resultType="bookUser">
+			SELECT 
+			tb.bk_update_dt update_dt //등록날짜
+			,tb.bk_title //도서명
+			,tb.bk_author // 저자
+			,tb.bk_publisher //출판사  
+			,tb.bk_tag_code //도서코드
+			,tb.bk_out_state //반출 상태
+			,tb.bk_out_start_dt //반출시작일
+			,tb.bk_out_end_dt // 반출 종료일
+			,tb.bk_out_reason // 반출사유
+			,tb.bk_register_nm //반출신청자
+				FROM te_book tb
+			WHERE 1 =1 
+					<if test="@org.apache.commons.lang3.ObjectUtils@isNotEmpty(p.searchStartDate)">AND bk_update_dt <![CDATA[ >= ]]> #{p.searchStartDate}</if> 
+					<if test="@org.apache.commons.lang3.ObjectUtils@isNotEmpty(p.searchEndDate)">AND bk_update_dt <![CDATA[ <= ]]> #{p.searchEndDate} </if>
+			         	
+			<choose>
+				<when test='p.bkmenu.equals("title")'>
+						<if test="@org.apache.commons.lang3.ObjectUtils@isNotEmpty(p.searchName)">AND tb.bk_title rlike trim( #{p.searchName}) </if>
+				</when>
+				<when test='p.bkmenu.equals("author")'>
+						<if test="@org.apache.commons.lang3.ObjectUtils@isNotEmpty(p.searchName)">AND tb.bk_author rlike trim( #{p.searchName}) </if>
+				</when>
+				<when test='p.bkmenu.equals("publisher")'>
+						<if test="@org.apache.commons.lang3.ObjectUtils@isNotEmpty(p.searchName)">AND tb.bk_publisher rlike trim( #{p.searchName}) </if>
+				</when>
+				<when test='p.bkmenu.equals("tagcode")'>
+						<if test="@org.apache.commons.lang3.ObjectUtils@isNotEmpty(p.searchName)">AND tb.bk_tag_code rlike trim( #{p.searchName}) </if>
+				</when>	
+				<when test='p.frstColOrdr.equals("updatedt") and p.frstSelOrdr.equals("A") '>
+					ORDER BY update_dt ASC
+				</when>
+				<when test='p.frstColOrdr.equals("updatedt") and p.frstSelOrdr.equals("D") '>
+					ORDER BY update_dt DESC
+				</when>
+				<when test='p.frstColOrdr.equals("bktitle") and p.frstSelOrdr.equals("A") '>
+					ORDER BY tb.bk_title ASC
+				</when>
+				<when test='p.frstColOrdr.equals("bktitle") and p.frstSelOrdr.equals("D") '>
+					ORDER BY tb.bk_title DESC
+				</when>
+
+
+		</choose>
+	</select>
+	
+	<update id="insertBookUser">
+	      UPDATE te_book tb
+         SET tb.bk_out_start_dt = #{bkOutStartDt}
+           , tb.bk_out_end_dt = #{bkOutEndDt}
+           , tb.bk_register_nm = #{bkRegisterNm}
+           , tb.bk_out_reason = #{bkOutReason}
+           , tb.bk_out_state = '승인 대기중'
+       WHERE tb.bk_title = #{bkTitle}
+         AND tb.bk_tag_code = #{bkTagCode}
+	
+	
+		</update>
+</mapper>

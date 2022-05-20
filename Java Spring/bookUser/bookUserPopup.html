@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.springframework.org/security/tags"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/popup">
+<head>
+    <meta charset="UTF-8">
+	<title>반출 신청 (이용자)</title>
+	<script th:src="@{/js/bms/book/bookUserPopup.js}"></script>
+	
+</head>
+<body style="overflow:hidden;"  onload="window.resizeTo(830,550)">
+<th:block layout:fragment="content">
+    <div id="" style="height:100%; padding:0px">
+		<div class="easyui-panel" style="width:100%; height:100%" data-options="fit:false, border:false">
+			<div class="easyui-layout" style="width:100%;height:100%;">
+				<form id="bookUserPopup_Form" method="post">	
+				<input  hidden="true" id="bookUserPopup_bkOutState" data-options="field:'bkOutState'">
+			
+				<div data-options="region:'north', border:false" class="f0 mB10" id="bookUserPopup_topTable">
+					<table class="tbl-write" style="table-layout : fixed;">
+					    <colgroup>
+							<col style="width:130px">
+							<col style="width:">
+							<col style="width:130px">
+							<col style="width:">
+						</colgroup>
+						<tbody>
+							<tr>
+								<th>신청자</th>
+								<td><input class="easyui-textbox" id="bookUserPopup_bkRegisterNm" name="bkRegisterNm" style="width:180px;"></td>
+							</tr>
+							<tr>
+								<th>도서명</th>
+								<td><input class="easyui-textbox" id="bookUserPopup_bkTitle" name="bkTitle" style="width:180px;" data-options="readonly:true"></td>
+								<th>저자</th>
+								<td><input class="easyui-textbox" id="bookUserPopup_bkAuthor" name="bkAuthor" style="width:180px;" data-options="readonly:true"></td>
+							</tr>
+							<tr>
+								<th>출판사</th>
+								<td><input class="easyui-textbox" id="bookUserPopup_bkPublisher" name="bkPublisher" style="width:180px;" data-options="readonly:true"></td>
+								<th>도서코드</th>
+								<td><input class="easyui-textbox" id="bookUserPopup_bkTagCode" name="bkTagCode" style="width:180px;" data-options="readonly:true"></td>
+							</tr>
+							<tr>
+								<th>반출기간</th>
+								<td><input class="easyui-datebox" id="bookUserPopup_bkOutStartDt" name="bkOutStartDt" style="width:110px;"> ~
+				            	<input class="easyui-datebox" id="bookUserPopup_bkOutEndDt" name="bkOutEndDt"  style="width:110px;" ></td>
+							</tr>
+						</tbody>
+						<tfoot>
+						
+							<tr>
+								<th>반출사유</th>
+                        <td><textarea wrap=virtual id="bookUserPopup_bkOutReason" placeholder="반출사유를 입력하세요" name="bkOutReason" style="width:600px; height:200px; resize: none; fontsize: 50px;"></textarea></td>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+			</form>
+				
+
+				<div data-options="region:'south',border:false" class="window-footer center" style="overflow: hidden; height:50px;" >
+							<a href="javascript:void(0)" id="btnSave" class="easyui-linkbutton lg">요청</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton lg" onclick="$.window('close')">취소</a>
+						</div>
+			</div>
+    	</div>
+    </div>
+</th:block>
+
+</body>
+</html>
